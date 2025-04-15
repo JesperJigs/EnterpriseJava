@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang ="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Membertable</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<h1>Members</h1>
+
+<div th:if="${members.size() == 0}">
+    <p>No members found</p>
+</div>
+
+<div th:unless="${members.size() == 0}">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>Street</th>
+            <th>Postal Code</th>
+            <th>City</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${members}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.firstName}"></td>
+            <td th:text="${member.lastName}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.phone}"></td>
+            <td th:text="${member.dateOfBirth}"></td>
+            <td th:text="${member.address.street}"></td>
+            <td th:text="${member.address.postalCode}"></td>
+            <td th:text="${member.address.city}"></td>
+            <td>
+                <form th:action="@{/admin/deletemember}" method="post">
+                    <input type="hidden" name="id" th:value="${member.id}" />
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
